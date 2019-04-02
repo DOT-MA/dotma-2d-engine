@@ -1,5 +1,20 @@
-# executable name
+# determine os
+UNAME			= $(shell uname)
+OS				= 
+ifeq ($(UNAME), Linux)
+OS				= Linux
+else ifeq ($(UNAME), Windows 10)
+OS				= Windows
+else ifeq ($(UNAME), Darwin)
+OS				= MacOS
+else
+@echo "Operating system not supported at this point in time."
+exit 0
+endif
 
+@echo $(UNAME)
+
+# executable name
 TARGET			= output.out
 
 # compiler to use
