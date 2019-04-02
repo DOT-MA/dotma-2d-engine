@@ -13,7 +13,7 @@
 #include "../include/Scenes/mainmenu.h"
 
 /**
- * Initilize game and it's required components.
+ * Initialize game and it's required components.
  */
 bool initGame(GameData* gameData) {
     // Game is running?
@@ -21,12 +21,14 @@ bool initGame(GameData* gameData) {
     // Create the window
     gameData->window = SDL_CreateWindow(WINDOW_TITLE, SDL_WINDOWPOS_UNDEFINED,
         SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_HEIGHT,
-        SDL_WINDOW_RESIZABLE),
+        SDL_WINDOW_RESIZABLE);
     // Create the renderer
     gameData->renderer = SDL_CreateRenderer(gameData->window, -1, SDL_RENDERER_ACCELERATED);
     // Set default background colour
-    SDL_SetRenderDrawColor(gameData->renderer, 255, 0, 0, 255);
-    SDL_RenderSetLogicalSize(gameData->renderer, WINDOW_WIDTH, WINDOW_HEIGHT);
+    SDL_SetRenderDrawColor(gameData->renderer, 255, 255, 255, 255);
+    // Resizing options.
+    // SDL_RenderSetLogicalSize(gameData->renderer, WINDOW_WIDTH, WINDOW_HEIGHT);
+    // SDL_RenderSetIntegerScale(gameData->renderer, true);
     // Custom framerate manager
     gameData->fps = initFPSManager();
     // Custom texture registry

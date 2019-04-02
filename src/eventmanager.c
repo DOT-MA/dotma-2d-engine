@@ -12,6 +12,9 @@
  * Check if provided x and y coordinates are inside of provided rectangle.
  */
 bool isCollision(int x, int y, SDL_Rect position) {
+    // Debug information.
+    printf("Click: %d, %d Entity: %d-%d, %d-%d\n", x, y, position.x, position.x + position.w,
+            position.y, position.y + position.h);
     if (x >= position.x && x <= position.x + position.w &&
             y >= position.y && y <= position.y + position.h) {
         return true;
@@ -44,6 +47,7 @@ void clickHandler(GameData* gameData) {
                 }
             }   
         } else {
+            // Just clicked.
             for (int i = 0; i < gameData->scene.entities.current; i++) {
                 Entity* e = &gameData->scene.entities.entities[i];
                 if (!hasComponent(e, LeftClicked)) {
@@ -51,6 +55,7 @@ void clickHandler(GameData* gameData) {
                 }
                 if (isCollision(x, y, e->position)) {
                     e->components[LeftClicked].call(e);
+                    printf("Entity left clicked!\n");
                 }
             }
         }
@@ -106,7 +111,7 @@ void keyHandler(GameData* gameData) {
  * Process input depending on the context of the current scene.
  */
 void defaultHandler(void* game) {
-    GameData* gameData = (GameData*) gameData;
+    GameData* gameData = (GameData*) game;
     // Default behaviour
     if (gameData->event.key.keysym.sym == SDLK_ESCAPE) {
         gameData->status = false;

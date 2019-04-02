@@ -10,8 +10,8 @@
 #include "game.h"
 
 /**
- * Render all renderable entites.
+ * Render the current scene.
  */
-void renderEntities(GameData* gameData);
+void renderScene(GameData* gameData);
 
 #endif

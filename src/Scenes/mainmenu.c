@@ -20,6 +20,7 @@ Scene initMainMenu(SDL_Renderer* renderer) {
     }
     // Populate scene with entities.
     addEntity(&scene.entities, &scene.assets, &initButton);
+    
     scene.eventHandler = &defaultHandler;
     scene.type = MainMenu;
     return scene;

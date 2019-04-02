@@ -78,10 +78,6 @@ int main(int argc, char** argv) {
 
         // ---------------- Handle user events.
         while (SDL_PollEvent(&gameData.event)) {
-            if (gameData.event.type == SDL_QUIT) {
-                gameData.status = false;
-                break;
-            }
             gameData.scene.eventHandler(&gameData);
         }
 
@@ -95,10 +91,7 @@ int main(int argc, char** argv) {
         cleanEntities(&gameData.scene.entities);
 
         // --------------- Render state.
-        SDL_RenderClear(gameData.renderer);
-        renderBackground(gameData.renderer, getAssetByReference("cat1.jpg", (&gameData.scene.assets))->pointer.texture);
-        renderEntities(&gameData);
-        SDL_RenderPresent(gameData.renderer);
+        renderScene(&gameData);
 
         // --------------- Wait if we have finished too soon.
         capFPS(&gameData.fps);
