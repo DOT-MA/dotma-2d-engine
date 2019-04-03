@@ -18,7 +18,7 @@ bool initEntityManager(EntityManager* entityManager) {
 /**
  * Add a new entity to the manager if there is space, if not allocate more space for new entity.
  */
-void addEntity(EntityManager* entityManager, AssetRegistry* assets, Entity (*initEntity)(AssetRegistry* assets)) {
+void addEntity(EntityManager* entityManager, AssetRegistry* assets, Entity (*initEntity)(AssetRegistry* assets), SDL_Rect position) {
     // Check if we have any space left for a new entity.
     if (entityManager->current + 1 >= entityManager->maximum) {
         entityManager->maximum *= 2;
@@ -26,6 +26,7 @@ void addEntity(EntityManager* entityManager, AssetRegistry* assets, Entity (*ini
     }
     // Create new entity with provided constructor.
     entityManager->entities[entityManager->current] = initEntity(assets);
+    entityManager->entities[entityManager->current].position = position;
     entityManager->current++;
 }
 

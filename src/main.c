@@ -13,6 +13,8 @@
 #include "../include/renderer.h"
 #include "../include/renderertemplates.h"
 
+#include "../include/camera.h"
+
 #include "../include/Entities/cat.h"
 #include "../include/Entities/button.h"
 
@@ -72,7 +74,7 @@ int main(int argc, char** argv) {
         SDL_Quit();
         return 3;
     }
-    
+
     // Main game loop.
     while (gameData.status) {
 
@@ -87,6 +89,7 @@ int main(int argc, char** argv) {
                 gameData.scene.entities.entities[i].components[OnTick].call(&gameData.scene.entities.entities[i]);
             }
         }
+
         // Remove all entities marked for deletion.
         cleanEntities(&gameData.scene.entities);
 

@@ -19,7 +19,7 @@ void buttonLeftClicked(void* e) {
 }
 
 /**
- * Initilizes the cat entity and its components.
+ * Initilizes the button.
  */
 Entity initButton(AssetRegistry* reg) {
     Entity entity;
@@ -28,12 +28,6 @@ Entity initButton(AssetRegistry* reg) {
         return (Entity) { 0 };
     }
     entity.textures[1] = getAssetByReference("unclick.png", reg)->pointer.texture;
-    // Starting position
-    entity.position.x = 200;
-    entity.position.y = 200;
-    // Width and height
-    entity.position.w = 100;
-    entity.position.h = 50;
     // Load custom components.
     entity.components[LeftClicked].call = &buttonLeftClicked;
     return entity;

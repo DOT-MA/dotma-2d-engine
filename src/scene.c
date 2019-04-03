@@ -13,6 +13,7 @@ bool initScene(Scene* scene) {
         freeAssets(&scene->assets);
         return false;
     }
+    scene->background = NULL;
     return true;
 }
 

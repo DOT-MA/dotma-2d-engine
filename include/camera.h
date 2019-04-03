@@ -10,4 +10,11 @@ typedef struct Camera {
     int rotation;
 } Camera;
 
+/**
+ * Takes a percentage for the x and y positions, width and height
+ * and translates the desired parameters into the game's scale.
+ */
+SDL_Rect translateRect(SDL_Renderer* renderer, float x, float y,
+        float w, float h);
+
 #endif

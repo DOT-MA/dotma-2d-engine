@@ -16,6 +16,7 @@ void renderEntities(EntityManager* entityManager, SDL_Renderer* renderer) {
     for (int i = 0; i < entityManager->current; i++) {
         if (hasComponent(&entityManager->entities[i], Render)) {
             entityManager->entities[i].components[Render].call(entityManager->entities[i], renderer);
+            printf("Rendered entity at: %d %d\n", entityManager->entities[i].position.x, entityManager->entities[i].position.y);
         }
     } 
 }

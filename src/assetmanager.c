@@ -15,8 +15,8 @@
  */
 bool initAssetManager(AssetRegistry* reg) {
     reg->currentSize = 0;
-    reg->totalSize = 5;
-    reg->registry = (RegisteredAsset*) malloc(sizeof(RegisteredAsset) * reg->totalSize);
+    reg->totalSize = 0;
+    reg->registry = NULL;
     return true;
 }
 
@@ -41,7 +41,12 @@ bool loadAssets(SDL_Renderer* renderer, AssetRegistry* reg, const char* filepath
     memset(buffer, '\0', sizeof(buffer));
     // Allocate space for each of the textures.
     reg->totalSize += total;
-    reg->registry = (RegisteredAsset*) realloc(reg->registry, sizeof(RegisteredAsset) * reg->totalSize);
+    // Check if we need to malloc or realloc
+    if (reg->totalSize - total == 0) {
+        reg->registry = (RegisteredAsset*) malloc(sizeof(RegisteredAsset) * reg->totalSize);
+    } else {
+        reg->registry = (RegisteredAsset*) realloc(reg->registry, sizeof(RegisteredAsset) * reg->totalSize);
+    }
     // Loop each line and load the texture.
     while(fgets(buffer, sizeof(buffer), fp)) {
         // If last character of buffer is a newline, strip it

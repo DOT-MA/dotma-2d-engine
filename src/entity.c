@@ -8,6 +8,7 @@
 #include "../include/assetmanager.h"
 #include "../include/renderertemplates.h"
 
+// --------------- Global components
 /**
  * Defualt deleted component call for all entites.
  */
@@ -24,12 +25,16 @@ void render(void* e, SDL_Renderer* r) {
     renderTexture(r, entity->textures[0], &entity->position);
 }
 
+// --------------- Utility functions
+
 /**
  * Returns true if the entity has queried component.
  */
 bool hasComponent(Entity* e, ComponentType c) {
     return !(e->components[c].call == NULL);
 }
+
+// --------------- Prepare the entity struct
 
 /**
  * Initalize an entity with a default size, location and with provided texture and sound.

@@ -14,18 +14,18 @@
 Scene initDebugScene(SDL_Renderer* renderer) {
     Scene scene;
     if (!initScene(&scene)) {
-        return (Scene) {};
+        return (Scene) {0};
     }
     // Load assets for the main menu.
     if (!loadAssets(renderer, &scene.assets, "./res/debug.manifest")) {
         freeScene(&scene);
-        return (Scene) {};
+        return (Scene) {0};
     }
     // Populate scene with entities.
     for (int i = 0; i < 50; i++) {
-        addEntity(&scene.entities, &scene.assets, &initCat);
+        // addEntity(&scene.entities, &scene.assets, &initCat);
     }
-    addEntity(&scene.entities, &scene.assets, &initButton);
+    // addEntity(&scene.entities, &scene.assets, &initButton);
     scene.eventHandler = &defaultHandler;
     scene.type = MainMenu;
     return scene;

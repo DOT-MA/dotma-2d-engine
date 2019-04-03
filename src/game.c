@@ -21,7 +21,7 @@ bool initGame(GameData* gameData) {
     // Create the window
     gameData->window = SDL_CreateWindow(WINDOW_TITLE, SDL_WINDOWPOS_UNDEFINED,
         SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_HEIGHT,
-        SDL_WINDOW_RESIZABLE);
+        SDL_WINDOW_SHOWN);
     // Create the renderer
     gameData->renderer = SDL_CreateRenderer(gameData->window, -1, SDL_RENDERER_ACCELERATED);
     // Set default background colour
