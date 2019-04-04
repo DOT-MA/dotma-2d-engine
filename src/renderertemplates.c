@@ -3,6 +3,7 @@
 #include <SDL2/SDL_ttf.h>
 
 #include <stdio.h>
+#include <string.h>
 #include <stdbool.h>
 
 #include "../include/renderertemplates.h"

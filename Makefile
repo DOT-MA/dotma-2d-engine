@@ -23,9 +23,10 @@ BINDIR			:= bin
 
 # helpers
 rm				:= rm -rf
-mkdir			:= mkdir -p 
-findc			:= find $(SRCDIR)/ -type f -name *.c
-findh			:= find $(INCDIR)/ -type f -name *.h
+mkdir			:= mkdir -p
+find			:= find
+findc			= $(find) $(SRCDIR)/ -type f -name *.c
+findh			= $(find) $(INCDIR)/ -type f -name *.h
 
 # determine os
 ifeq ($(UNAME), Linux)
@@ -42,12 +43,13 @@ endif
 # override if on windows
 ifeq ($(OS), WIN)
 SHELL 			:= powershell
-findc			:= Get-ChildItem -Path src/ -Filter *.c -Recurse -ErrorAction SilentlyContinue -Force | % { $_.name } | foreach-object ` {"$(SRCDIR)/" + $_}
-findh			:= Get-ChildItem -Path src/ -Filter *.h -Recurse -ErrorAction SilentlyContinue -Force | % { $_.name } | foreach-object ` {"$(INCDIR)/" + $_}
+TARGET			:= output.exe
+# where is the find command located on your windows machine?
+find			:= C:\MinGW\msys\1.0\bin\find.exe
 LFLAGS			:= -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer -Isrc/include
-$(info Building for windows)
+$(info Enviroment: windows)
 else
-$(info Building for unix)
+$(info Enviroment: unix)
 endif
 
 # source listings
@@ -66,26 +68,28 @@ $(shell $(mkdir) $(OBJDIR)/Entities)
 $(shell $(mkdir) $(OBJDIR)/Components)
 $(shell $(mkdir) $(OBJDIR)/Scenes)
 
-# build objects
-$(BINDIR)/$(TARGET): $(OBJECTS)
-	@$(LINKER) $(OBJECTS) $(LFLAGS) -o $@
-	$(info Linking complete!)
-
-# compile executable
-$(OBJECTS): $(OBJDIR)/%.o : $(SRCDIR)/%.c
-	@$(CC) $(CFLAGS) -c $< -o $@
-	$(info Compiled $< successfully!)
-
-# clean all building materials.
 .PHONY:	clean
-
-# are we making a debug build?
-debug:
-	CFLAGS += -DDEBUG -g
-
-
+# clean all building materials.
 clean:
 	@$(rm) $(OBJDIR)
 	@echo "Cleanup complete!"
 	@$(rm) $(BINDIR)/$(TARGET)
 	@echo "Executable removed!"
+
+# are we making a debug build?
+debug: CFLAGS += -DDEBUG -g
+debug: $(OBJECTS)
+debug: $(BINDIR)/$(TARGET)
+
+all: $(OBJECTS) $(BINDIR)/$(TARGET)
+
+# compile objects
+$(OBJECTS): $(OBJDIR)/%.o : $(SRCDIR)/%.c
+	@$(CC) $(CFLAGS) -c $< -o $@
+	$(info Compiled $< successfully!)
+
+
+# link objects
+$(BINDIR)/$(TARGET): $(OBJECTS)
+	@$(LINKER) $(OBJECTS) $(LFLAGS) -o $@
+	$(info Linking complete!)
