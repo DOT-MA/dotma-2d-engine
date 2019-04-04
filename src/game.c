@@ -31,7 +31,7 @@ bool initGame(GameData* gameData) {
     // SDL_RenderSetIntegerScale(gameData->renderer, true);
     // Custom framerate manager
     gameData->fps = initFPSManager();
-    // Custom texture registry
+    // Custom texture assetManageristry
     gameData->menu = initMainMenu(gameData->renderer);
     gameData->scene = initMainMenu(gameData->renderer);
     return true;

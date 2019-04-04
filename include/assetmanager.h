@@ -5,11 +5,12 @@
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_mixer.h>
 
+#include <stdint.h>
 #include <stdbool.h>
 
 /**
  * Enumeration of each asset type.
- * How we know what type each registry asset is.
+ * How we know what type each assetManageristry asset is.
  */
 enum AssetType {
     Texture,
@@ -27,52 +28,52 @@ typedef union AssetPointer {
 } AssetPointer;
 
 /**
- * Each texture to be registered.
+ * Each texture to be assetManageristered.
  */
-typedef struct RegisteredAsset {
+typedef struct Asset {
     int uniqueID;
     enum AssetType type;
     char* reference;
     AssetPointer pointer;
-} RegisteredAsset;
+} Asset;
 
 /**
- * The Registry of all loaded textures.
+ * The assetManageristry of all loaded textures.
  */
-typedef struct AssetRegistry {
-    unsigned int currentSize;
-    unsigned int totalSize;
-    RegisteredAsset* registry;
-} AssetRegistry;
+typedef struct AssetManager {
+    size_t currentSize;
+    size_t totalSize;
+    Asset* assetManageristry;
+} AssetManager;
 
 /**
  * Initialize the asset manager.
  */
-bool initAssetManager(AssetRegistry* reg);
+bool initAssetManager(AssetManager* assetManager);
 
 /**
  * Load assets from a newline-delimated plain text file.
  */
-bool loadAssets(SDL_Renderer* renderer, AssetRegistry* reg, const char* configPath);
+bool loadAssets(SDL_Renderer* renderer, AssetManager* assetManager, const char* configPath);
 
 /**
  *  Load an asset into the manager.
  */
-bool loadAsset(SDL_Renderer* renderer, const char* path, RegisteredAsset* reg);
+bool loadAsset(SDL_Renderer* renderer, const char* path, Asset* assetManager);
 
 /**
  * Determine the type of the asset and set the filename and type.
  */
-bool typeAsset(RegisteredAsset* asset, const char* path);
+bool typeAsset(Asset* asset, const char* path);
 
 /**
- * Free all assets from a provided registry.
+ * Free all assets from a provided assetManageristry.
  */
-bool freeAssets(AssetRegistry* reg);
+bool freeAssets(AssetManager* assetManager);
 
 /**
  * If an asset is found with provided reference, return pointer to asset, else return NULL.
  */
-RegisteredAsset* getAssetByReference(const char* reference, AssetRegistry* reg);
+Asset* getAssetByReference(const char* reference, AssetManager* assetManager);
 
 #endif

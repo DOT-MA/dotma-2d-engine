@@ -6,9 +6,6 @@
  * Initialize the scene components.
  */
 bool initScene(Scene* scene) {
-    if (!initAssetManager(&scene->assets)) {
-        return false;
-    }
     if (!initEntityManager(&scene->entities)) {
         freeAssets(&scene->assets);
         return false;

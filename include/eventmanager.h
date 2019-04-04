@@ -8,7 +8,7 @@
 #include "entity.h"
 
 /**
- * Check the event against the registered events and execute
+ * Check the event against the assetManageristered events and execute
  * associated command.
  */
 void checkEvent(SDL_Keycode);

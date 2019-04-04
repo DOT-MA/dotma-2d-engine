@@ -8,7 +8,7 @@
 /**
  * Initilizes the cat entity.
  */
-Entity initCat(AssetRegistry* reg);
+Entity initCat(AssetManager* assetManager);
 
 
 #endif

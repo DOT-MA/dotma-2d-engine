@@ -17,7 +17,7 @@ SDL_Rect translateRect(SDL_Renderer* renderer, float x, float y,
         .x = (int) (windowWidth * x) + ((windowWidth * w) / 2),
         .y = (int) (windowHeight * y) - ((windowHeight * h) / 2)
     };
-    // printf("%d %d %d %d %d %d\n", windowWidth, windowHeight, transformed.w, transformed.h, transformed.x, transformed.y);
+    printf("%d %d %d %d %d %d\n", windowWidth, windowHeight, transformed.w, transformed.h, transformed.x, transformed.y);
     return transformed;
 }
 

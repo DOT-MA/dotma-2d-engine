@@ -68,20 +68,11 @@ $(shell $(mkdir) $(OBJDIR)/Entities)
 $(shell $(mkdir) $(OBJDIR)/Components)
 $(shell $(mkdir) $(OBJDIR)/Scenes)
 
-.PHONY:	clean
-# clean all building materials.
-clean:
-	@$(rm) $(OBJDIR)
-	@echo "Cleanup complete!"
-	@$(rm) $(BINDIR)/$(TARGET)
-	@echo "Executable removed!"
+all: $(OBJECTS) $(BINDIR)/$(TARGET)
 
 # are we making a debug build?
 debug: CFLAGS += -DDEBUG -g
-debug: $(OBJECTS)
-debug: $(BINDIR)/$(TARGET)
-
-all: $(OBJECTS) $(BINDIR)/$(TARGET)
+debug: $(OBJECTS) $(BINDIR)/$(TARGET)
 
 # compile objects
 $(OBJECTS): $(OBJDIR)/%.o : $(SRCDIR)/%.c
@@ -93,3 +84,11 @@ $(OBJECTS): $(OBJDIR)/%.o : $(SRCDIR)/%.c
 $(BINDIR)/$(TARGET): $(OBJECTS)
 	@$(LINKER) $(OBJECTS) $(LFLAGS) -o $@
 	$(info Linking complete!)
+
+.PHONY:	clean
+# clean all building materials.
+clean:
+	@$(rm) $(OBJDIR)
+	@echo "Cleanup complete!"
+	@$(rm) $(BINDIR)/$(TARGET)
+	@echo "Executable removed!"

@@ -11,7 +11,6 @@
 #include "component.h"
 #include "timer.h"
 
-
 /**
  * Possible stats an entity can have.
  */
@@ -40,7 +39,7 @@ typedef struct Entity {
 /**
  * Initalize an entity with a default size, location and with provided texture.
  */
-bool initEntity(Entity* e, AssetRegistry* reg, const char* textureRef, const char* soundRef);
+bool initEntity(Entity* e, AssetManager* assetManager, const char* textureRef, const char* soundRef);
 
 /**
  * Returns true if the entity has queried component.

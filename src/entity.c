@@ -11,7 +11,7 @@
 
 // --------------- Global components
 /**
- * Defualt deleted component call for all entites.
+ * Defualt deleted component call for all entities.
  */
 void deleted(void* e) {
     Entity* entity = (Entity*) e;
@@ -19,7 +19,7 @@ void deleted(void* e) {
 }
 
 /**
- * Defualt render call for all entites.
+ * Defualt render call for all entities.
  */
 void render(void* e, SDL_Renderer* r) {
     Entity* entity = (Entity*) e;
@@ -40,14 +40,14 @@ bool hasComponent(Entity* e, ComponentType c) {
 /**
  * Initalize an entity with a default size, location and with provided texture and sound.
  */
-bool initEntity(Entity* e, AssetRegistry* reg, const char* textureRef, const char* soundRef) {
+bool initEntity(Entity* e, AssetManager* assetManager, const char* textureRef, const char* soundRef) {
     // Initalize all calls as null
     for (int i = 0; i < COMPONENT_TOTAL; i++) {
         e->components[i].call = NULL;
     }
     memset(e->stats, -1, sizeof(int));
     if (textureRef != NULL) {
-        RegisteredAsset* asset = getAssetByReference(textureRef, reg);
+        Asset* asset = getAssetByReference(textureRef, assetManager);
         if (asset == NULL) {
             fprintf(stderr, "Unable to find asset for entity: %s\n", textureRef);
             return false;
@@ -55,7 +55,7 @@ bool initEntity(Entity* e, AssetRegistry* reg, const char* textureRef, const cha
         e->textures[0] = asset->pointer.texture;
     }
     if (soundRef != NULL) {
-        RegisteredAsset* asset = getAssetByReference(soundRef, reg);
+        Asset* asset = getAssetByReference(soundRef, assetManager);
         if (asset == NULL) {
             fprintf(stderr, "Unable to find asset for entity: %s\n", soundRef);
             return false;

@@ -1,6 +1,8 @@
 #ifndef SCENE_H
 #define SCENE_H
 
+#include <stdint.h>
+
 #include "assetmanager.h"
 #include "entitymanager.h"
 #include "entity.h"
@@ -20,18 +22,17 @@ typedef enum SceneType {
  * the type of scene.
  */
 typedef struct Scene {
-    SceneType type;
-    AssetRegistry assets;
-    EntityManager entities;
-    // Need to cast as GameData
-    void (*eventHandler)(void* gameData);
-    SDL_Texture* background;
+    SceneType type;                         // Type of scene.
+    EntityManager entitiyManager;           // Entities in scene.
+    size_t assetRange[2];                   // Position of assets in assetmanager.
+    void (*eventHandler)(void* gameData);   // Event handler for scene.
+    SDL_Texture* background;                // Default background of scene.
 } Scene;
 
 /**
  * Initialize the scene components.
  */
-bool initScene(Scene* scene);
+bool initializeScene(Scene* scene);
 
 /**
  * Free a scene.

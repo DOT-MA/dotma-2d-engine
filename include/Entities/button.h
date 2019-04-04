@@ -8,7 +8,7 @@
 /**
  * Initilizes the button entity.
  */
-Entity initButton(AssetRegistry* reg);
+Entity initButton(AssetManager* assetManager);
 
 
 #endif

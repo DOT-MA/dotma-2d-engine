@@ -20,10 +20,9 @@ Scene initMainMenu(SDL_Renderer* renderer) {
         return (Scene) {0};
     }
     // Set the background texture.
-    scene.background = getAssetByReference("cat3.jpg", &scene.assets)->pointer.texture;
+    // scene.background = getAssetByReference("cat3.jpg", &scene.assets)->pointer.texture;
     // Populate scene with entities.
-    addEntity(&scene.entities, &scene.assets, &initButton,
-            translateRect(renderer, 0.5f, 0.8f, 0.2f, 0.2f));
+    addEntity(&scene.entities, &scene.assets, &initButton, (SDL_Rect) {20, 20, 20, 20});
     addEntity(&scene.entities, &scene.assets, &initButton,
             translateRect(renderer, 0.5f, 0.2f, 0.2f, 0.2f));
     

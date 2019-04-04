@@ -50,10 +50,10 @@ void catOnTick(void* e) {
 /**
  * Initializes the cat entity and its components.
  */
-Entity initCat(AssetRegistry* reg) {
+Entity initCat(AssetManager* assetManager) {
     Entity cat;
     // Load cat assets make more flexable and specific later.
-    if (!initEntity(&cat, reg, "cat4.jpg", "meow1.ogg")) {
+    if (!initEntity(&cat, assetManager, "cat4.jpg", "meow1.ogg")) {
         fprintf(stderr, "Could not initialize cat entity.\n");
         return (Entity) { 0 };
     }

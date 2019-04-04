@@ -145,7 +145,7 @@ such as by intimate data communication or control flow between those
 subprograms and other parts of the work.
 
   The Corresponding Source need not include anything that users
-can regenerate automatically from other parts of the Corresponding
+can assetManagerenerate automatically from other parts of the Corresponding
 Source.
 
   The Corresponding Source for a work in source code form is that
@@ -223,7 +223,7 @@ terms of section 4, provided that you also meet all of these conditions:
     License to anyone who comes into possession of a copy.  This
     License will therefore apply, along with any applicable section 7
     additional terms, to the whole of the work, and all its parts,
-    regardless of how they are packaged.  This License gives no
+    assetManagerardless of how they are packaged.  This License gives no
     permission to license the work in any other way, but it does not
     invalidate such permission if you have separately received it.
 
@@ -236,11 +236,11 @@ terms of section 4, provided that you also meet all of these conditions:
 works, which are not by their nature extensions of the covered work,
 and which are not combined with it such as to form a larger program,
 in or on a volume of a storage or distribution medium, is called an
-"aggregate" if the compilation and its resulting copyright are not
+"aggassetManagerate" if the compilation and its resulting copyright are not
 used to limit the access or legal rights of the compilation's users
 beyond what the individual works permit.  Inclusion of a covered work
-in an aggregate does not cause this License to apply to the other
-parts of the aggregate.
+in an aggassetManagerate does not cause this License to apply to the other
+parts of the aggassetManagerate.
 
   6. Conveying Non-Source Forms.
 
@@ -281,7 +281,7 @@ in one of these ways:
     may be on a different server (operated by you or a third party)
     that supports equivalent copying facilities, provided you maintain
     clear directions next to the object code saying where to find the
-    Corresponding Source.  Regardless of what server hosts the
+    Corresponding Source.  assetManagerardless of what server hosts the
     Corresponding Source, you remain obligated to ensure that it is
     available for as long as needed to satisfy these requirements.
 
@@ -300,10 +300,10 @@ or household purposes, or (2) anything designed or sold for incorporation
 into a dwelling.  In determining whether a product is a consumer product,
 doubtful cases shall be resolved in favor of coverage.  For a particular
 product received by a particular user, "normally used" refers to a
-typical or common use of that class of product, regardless of the status
+typical or common use of that class of product, assetManagerardless of the status
 of the particular user or of the way in which the particular user
 actually uses, or expects or is expected to use, the product.  A product
-is a consumer product regardless of whether the product has substantial
+is a consumer product assetManagerardless of whether the product has substantial
 commercial, industrial or non-consumer uses, unless such uses represent
 the only significant mode of use of the product.
 
@@ -319,7 +319,7 @@ modification has been made.
 specifically for use in, a User Product, and the conveying occurs as
 part of a transaction in which the right of possession and use of the
 User Product is transferred to the recipient in perpetuity or for a
-fixed term (regardless of how the transaction is characterized), the
+fixed term (assetManagerardless of how the transaction is characterized), the
 Corresponding Source conveyed under this section must be accompanied
 by the Installation Information.  But this requirement does not apply
 if neither you nor any third party retains the ability to install
@@ -349,7 +349,7 @@ be treated as though they were included in this License, to the extent
 that they are valid under applicable law.  If additional permissions
 apply only to part of the Program, that part may be used separately
 under those permissions, but the entire Program remains governed by
-this License without regard to the additional permissions.
+this License without assetManagerard to the additional permissions.
 
   When you convey a copy of a covered work, you may at your option
 remove any additional permissions from that copy, or from any part of

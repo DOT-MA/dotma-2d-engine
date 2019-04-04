@@ -13,17 +13,17 @@
 /**
  * Initialize the asset manager.
  */
-bool initAssetManager(AssetRegistry* reg) {
-    reg->currentSize = 0;
-    reg->totalSize = 0;
-    reg->registry = NULL;
+bool initAssetManager(AssetManager* assetManager) {
+    assetManager->currentSize = 0;
+    assetManager->totalSize = 0;
+    assetManager->assetManageristry = NULL;
     return true;
 }
 
 /**
  * Load assets into the assetmanager.
  */
-bool loadAssets(SDL_Renderer* renderer, AssetRegistry* reg, const char* filepath) {
+bool loadAssets(SDL_Renderer* renderer, AssetManager* assetManager, const char* filepath) {
     // How many textures are we loading?
     int total = 0;
     char buffer[100];
@@ -40,12 +40,12 @@ bool loadAssets(SDL_Renderer* renderer, AssetRegistry* reg, const char* filepath
     fseek(fp, 0, SEEK_SET);
     memset(buffer, '\0', sizeof(buffer));
     // Allocate space for each of the textures.
-    reg->totalSize += total;
+    assetManager->totalSize += total;
     // Check if we need to malloc or realloc
-    if (reg->totalSize - total == 0) {
-        reg->registry = (RegisteredAsset*) malloc(sizeof(RegisteredAsset) * reg->totalSize);
+    if (assetManager->totalSize - total == 0) {
+        assetManager->assetManageristry = (Asset*) malloc(sizeof(Asset) * assetManager->totalSize);
     } else {
-        reg->registry = (RegisteredAsset*) realloc(reg->registry, sizeof(RegisteredAsset) * reg->totalSize);
+        assetManager->assetManageristry = (Asset*) realloc(assetManager->assetManageristry, sizeof(Asset) * assetManager->totalSize);
     }
     // Loop each line and load the texture.
     while(fgets(buffer, sizeof(buffer), fp)) {
@@ -54,27 +54,27 @@ bool loadAssets(SDL_Renderer* renderer, AssetRegistry* reg, const char* filepath
         if (buffer[blen - 1] == '\n') {
             buffer[strlen(buffer) - 1] = '\0';
         }
-        if (!loadAsset(renderer, buffer, &reg->registry[reg->currentSize])) {
+        if (!loadAsset(renderer, buffer, &assetManager->assetManageristry[assetManager->currentSize])) {
             // Unable to load?
-            fprintf(stderr, "Could not load file: %s\n", reg->registry[reg->currentSize].reference);
+            fprintf(stderr, "Could not load file: %s\n", assetManager->assetManageristry[assetManager->currentSize].reference);
             memset(buffer, '\0', sizeof(buffer));
             continue;
         }
-        // Let the registry know we have added an asset.
+        // Let the assetManageristry know we have added an asset.
         // Set the texture's unique id
-        reg->registry[reg->currentSize].uniqueID = reg->currentSize;
-        reg->currentSize++;
+        assetManager->assetManageristry[assetManager->currentSize].uniqueID = assetManager->currentSize;
+        assetManager->currentSize++;
         memset(buffer, '\0', sizeof(buffer));
     }
     fclose(fp);
-    printf("Loaded %d out of %d assets.\n", reg->currentSize, reg->totalSize);
+    printf("Loaded %d out of %d assets.\n", assetManager->currentSize, assetManager->totalSize);
     return true;
 }
 
 /**
  *  Load an asset into the manager.
  */
-bool loadAsset(SDL_Renderer* renderer, const char* path, RegisteredAsset* asset) {
+bool loadAsset(SDL_Renderer* renderer, const char* path, Asset* asset) {
     // Set the texture's reference string and check the asset type.
     if (!typeAsset(asset, path)) {
         fprintf(stderr, "Unable to type asset %s.\n", path);
@@ -108,7 +108,7 @@ bool loadAsset(SDL_Renderer* renderer, const char* path, RegisteredAsset* asset)
 /**
  * Determine the type of the asset and set the filename and type.
  */
-bool typeAsset(RegisteredAsset* asset, const char* path) {
+bool typeAsset(Asset* asset, const char* path) {
     // Parse filename to get extention.
     char copy[strlen(path)];
     strcpy(copy, path);
@@ -145,9 +145,9 @@ bool typeAsset(RegisteredAsset* asset, const char* path) {
 }
 
 /**
- * Free an entry in the texture registry.
+ * Free an entry in the texture assetManageristry.
  */
-bool freeAsset(RegisteredAsset* asset) {
+bool freeAsset(Asset* asset) {
     // Free asset data.
     switch (asset->type) {
         case Texture:
@@ -176,27 +176,27 @@ bool freeAsset(RegisteredAsset* asset) {
 }
 
 /**
- * Free all assets in registry.
+ * Free all assets in assetManageristry.
  */
-bool freeAssets(AssetRegistry* reg) {
+bool freeAssets(AssetManager* assetManager) {
     int freed = 0;
-    for (int i = 0; i < reg->currentSize; i++) {
-        if (!freeAsset(&reg->registry[i])) {
-            fprintf(stderr, "Failed to free asset in position %d [%s].\n", i, reg->registry[i].reference);
+    for (int i = 0; i < assetManager->currentSize; i++) {
+        if (!freeAsset(&assetManager->assetManageristry[i])) {
+            fprintf(stderr, "Failed to free asset in position %d [%s].\n", i, assetManager->assetManageristry[i].reference);
         }
         freed++;
     }
-    printf("Freed %d assets out of %d.\n", freed, reg->totalSize);
+    printf("Freed %d assets out of %d.\n", freed, assetManager->totalSize);
     return true;
 }
 
 /**
  * If an asset is found with provided reference, return pointer to asset, else return NULL.
  */
-RegisteredAsset* getAssetByReference(const char* reference, AssetRegistry* reg) {
-    for (int i = 0; i < reg->currentSize; i++) {
-        if (strcmp(reg->registry[i].reference, reference) == 0) {
-            return &reg->registry[i];
+Asset* getAssetByReference(const char* reference, AssetManager* assetManager) {
+    for (int i = 0; i < assetManager->currentSize; i++) {
+        if (strcmp(assetManager->assetManageristry[i].reference, reference) == 0) {
+            return &assetManager->assetManageristry[i];
         }
     }
     return NULL;

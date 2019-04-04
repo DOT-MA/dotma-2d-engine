@@ -21,13 +21,13 @@ void buttonLeftClicked(void* e) {
 /**
  * Initilizes the button.
  */
-Entity initButton(AssetRegistry* reg) {
+Entity initButton(AssetManager* assetManager) {
     Entity entity;
-    if (!initEntity(&entity, reg, "click.png", "click1.ogg")) {
+    if (!initEntity(&entity, assetManager, "click.png", "click1.ogg")) {
         fprintf(stderr, "Could not initilize button entity.\n");
         return (Entity) { 0 };
     }
-    entity.textures[1] = getAssetByReference("unclick.png", reg)->pointer.texture;
+    entity.textures[1] = getAssetByReference("unclick.png", assetManager)->pointer.texture;
     // Load custom components.
     entity.components[LeftClicked].call = &buttonLeftClicked;
     return entity;

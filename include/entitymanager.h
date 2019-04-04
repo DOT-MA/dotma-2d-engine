@@ -1,17 +1,18 @@
 #ifndef ENTITYMANAGER_H
 #define ENTITYMANAGER_H
 
+#include <stdint.h>
 #include <stdbool.h>
 
 #include "entity.h"
 #include "assetmanager.h"
 
 /**
- * Holds total number of entites.
+ * Holds total number of entities.
  */
-typedef struct EntiyManager {
-    unsigned int current;
-    unsigned int maximum;
+typedef struct EntityManager {
+    size_t current;
+    size_t maximum;
     Entity* entities;
 } EntityManager;
 
@@ -23,10 +24,10 @@ bool initEntityManager(EntityManager* entityManager);
 /**
  * Add a new entity to the manager if there is space, if not allocate more space for new entity.
  */
-void addEntity(EntityManager* entityManager, AssetRegistry* assets, Entity (*initEntity)(AssetRegistry* assets), SDL_Rect position);
+void addEntity(EntityManager* entityManager, AssetManager* assets, Entity (*initEntity)(AssetManager* assets), SDL_Rect position);
 
 /**
- * Remove all entites that are marked to delete then shift all right of the removed entity left to conserve space.
+ * Remove all entities that are marked to delete then shift all right of the removed entity left to conserve space.
  */
 void cleanEntities(EntityManager* entityManager);
 
