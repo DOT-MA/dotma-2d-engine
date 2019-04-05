@@ -6,10 +6,10 @@
 #include "../include/config.h"
 #include "../include/game.h"
 
-#include "../include/timer.h"
-#include "../include/entitymanager.h"
+#include "../include/Utilities/timer.h"
+#include "../include/Managers/entitymanager.h"
 
-#include "../include/scene.h"
+#include "../include/Scenes/scene.h"
 #include "../include/Scenes/mainmenu.h"
 
 /**
@@ -29,11 +29,13 @@ bool initGame(GameData* gameData) {
     // Resizing options.
     // SDL_RenderSetLogicalSize(gameData->renderer, WINDOW_WIDTH, WINDOW_HEIGHT);
     // SDL_RenderSetIntegerScale(gameData->renderer, true);
-    // Custom framerate manager
+    // Custom framerate.
     gameData->fps = initFPSManager();
-    // Custom texture assetManageristry
-    gameData->menu = initMainMenu(gameData->renderer);
-    gameData->scene = initMainMenu(gameData->renderer);
+    // AssetManager.
+    initializeAssetManager(&gameData->assetManager);
+    // Scenes.
+    gameData->menu = initializeMainMenu(gameData->renderer, &gameData->assetManager, "./res/mainmenu.manifest");
+    gameData->scene = initializeMainMenu(gameData->renderer, &gameData->assetManager, "./res/debug.manifest");
     return true;
 }
 

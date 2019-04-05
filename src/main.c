@@ -7,18 +7,18 @@
 #include <unistd.h>
 #include <stdbool.h>
 
-#include "../include/framerate.h"
-#include "../include/assetmanager.h"
-#include "../include/eventmanager.h"
-#include "../include/renderer.h"
-#include "../include/renderertemplates.h"
-
-#include "../include/camera.h"
-
-#include "../include/Entities/cat.h"
-#include "../include/Entities/button.h"
+#include "../include/debug.h"
 
 #include "../include/game.h"
+
+#include "../include/Utilities/framerate.h"
+#include "../include/Managers/assetmanager.h"
+#include "../include/Managers/eventmanager.h"
+#include "../include/Rendering/renderer.h"
+#include "../include/Rendering/renderertemplates.h"
+#include "../include/Rendering/camera.h"
+#include "../include/Entities/cat.h"
+#include "../include/Entities/button.h"
 
 /**
  *  Initialize SDL components.
@@ -26,19 +26,19 @@
  bool initModules(void) {
     // Start SDL and components.
     if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO) != 0) {
-        fprintf(stderr, "Unable to initialize SDL: %s\n", SDL_GetError());
+        DEBUG_PRINT(stderr, "Unable to initialize SDL: %s\n", SDL_GetError());
         return false;
     }
     if (IMG_Init(IMG_INIT_JPG|IMG_INIT_PNG) == 0) {
-        fprintf(stderr, "Unable to initialize SDL_image\n");
+        DEBUG_PRINT(stderr, "Unable to initialize SDL_image\n");
         return false;
     }
     if (TTF_Init() != 0) {
-        fprintf(stderr, "Unable to initialize SDL_ttf\n");
+        DEBUG_PRINT(stderr, "Unable to initialize SDL_ttf\n");
         return false;
     }
     if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1) {
-        fprintf(stderr, "Unable to initialize SDL_mixer\n");
+        DEBUG_PRINT(stderr, "Unable to initialize SDL_mixer\n");
         return false;    
     }
     return true;
@@ -65,14 +65,8 @@ int main(int argc, char** argv) {
     // Load game components and state.
     GameData gameData;
     if (!initGame(&gameData)) {
-        fprintf(stderr, "Unable to initialize game modules.\n");
+        DEBUG_PRINT(stderr, "Unable to initialize game modules.\n");
         return 2;
-    }
-    // Load game assets.
-    if (!loadAssets(gameData.renderer, &gameData.scene.assets, "./res/debug.manifest")) {
-        fprintf(stderr, "Unable to load assets.\n");
-        SDL_Quit();
-        return 3;
     }
 
     // Main game loop.
@@ -80,18 +74,18 @@ int main(int argc, char** argv) {
 
         // ---------------- Handle user events.
         while (SDL_PollEvent(&gameData.event)) {
-            gameData.scene.eventHandler(&gameData);
+            defaultHandler(&gameData);
         }
 
         //----------------- Update state.
-        for (int i = 0; i < gameData.scene.entities.current; i++) {
-            if (hasComponent(&gameData.scene.entities.entities[i], OnTick)) {
-                gameData.scene.entities.entities[i].components[OnTick].call(&gameData.scene.entities.entities[i]);
+        for (int i = 0; i < gameData.scene.entityManager->current; i++) {
+            if (hasComponent(&gameData.scene.entityManager->entities[i], OnTick)) {
+                gameData.scene.entityManager->entities[i].components[OnTick].call(&gameData.scene.entityManager->entities[i]);
             }
         }
 
         // Remove all entities marked for deletion.
-        cleanEntities(&gameData.scene.entities);
+        cleanEntities(gameData.scene.entityManager);
 
         // --------------- Render state.
         renderScene(&gameData);

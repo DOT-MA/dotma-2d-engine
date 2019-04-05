@@ -2,8 +2,10 @@
 
 #include <stdio.h>
 
-#include "../../include/entity.h"
-#include "../../include/component.h"
+#include "../../include/debug.h"
+
+#include "../../include/Entities/entity.h"
+#include "../../include/Components/component.h"
 #include "../../include/Entities/button.h"
 
 /**
@@ -19,15 +21,15 @@ void buttonLeftClicked(void* e) {
 }
 
 /**
- * Initilizes the button.
+ * Initializes the button.
  */
 Entity initButton(AssetManager* assetManager) {
     Entity entity;
     if (!initEntity(&entity, assetManager, "click.png", "click1.ogg")) {
-        fprintf(stderr, "Could not initilize button entity.\n");
+        DEBUG_PRINT(stderr, "Could not initialize button entity.\n");
         return (Entity) { 0 };
     }
-    entity.textures[1] = getAssetByReference("unclick.png", assetManager)->pointer.texture;
+    entity.textures[1] = getAssetByReference(assetManager, "unclick.png")->pointer.texture;
     // Load custom components.
     entity.components[LeftClicked].call = &buttonLeftClicked;
     return entity;

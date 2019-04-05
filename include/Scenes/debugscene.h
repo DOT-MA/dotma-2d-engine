@@ -1,8 +1,11 @@
 #ifndef MAINMENU_H
 #define MAINMENU_H
 
-#include "../scene.h"
+#include "scene.h"
 
-Scene initDebugScene(SDL_Renderer* renderer);
+/**
+ * Constructor for the debug testing scene.
+ */
+Scene initializeDebugScene(SDL_Renderer* renderer, AssetManager* assetManager, const char* manifest)
 
 #endif

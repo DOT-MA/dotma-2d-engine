@@ -5,8 +5,8 @@
 
 #include <stdbool.h>
 
-#include "framerate.h"
-#include "scene.h"
+#include "./Utilities/framerate.h"
+#include "./Scenes/scene.h"
 
 /**
  * GameData struct, holds all data such as current scene,
@@ -21,6 +21,8 @@ typedef struct GameData {
     SDL_Event event;
     // Frame rate manager.
     FrameRateManager fps;
+    // Asset manager.
+    AssetManager assetManager;
     // Resources required for the main/escape menu and debugging.
     Scene menu;
     // Current scene.

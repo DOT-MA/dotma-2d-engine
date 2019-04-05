@@ -64,14 +64,18 @@ OBJECTS  		:= $(SOURCES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
 # make subfolders if they do not already exist.
 $(shell $(mkdir) $(OBJDIR))
-$(shell $(mkdir) $(OBJDIR)/Entities)
 $(shell $(mkdir) $(OBJDIR)/Components)
+$(shell $(mkdir) $(OBJDIR)/Entities)
+$(shell $(mkdir) $(OBJDIR)/Managers)
+$(shell $(mkdir) $(OBJDIR)/Rendering)
 $(shell $(mkdir) $(OBJDIR)/Scenes)
+$(shell $(mkdir) $(OBJDIR)/Utilities)
 
 all: $(OBJECTS) $(BINDIR)/$(TARGET)
 
 # are we making a debug build?
-debug: CFLAGS += -DDEBUG -g
+debug: CFLAGS += -DDEBUG -g 
+debug: TARGET = debug.out
 debug: $(OBJECTS) $(BINDIR)/$(TARGET)
 
 # compile objects
@@ -85,10 +89,13 @@ $(BINDIR)/$(TARGET): $(OBJECTS)
 	@$(LINKER) $(OBJECTS) $(LFLAGS) -o $@
 	$(info Linking complete!)
 
+
 .PHONY:	clean
+
 # clean all building materials.
 clean:
 	@$(rm) $(OBJDIR)
 	@echo "Cleanup complete!"
 	@$(rm) $(BINDIR)/$(TARGET)
 	@echo "Executable removed!"
+	

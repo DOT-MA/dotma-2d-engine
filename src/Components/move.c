@@ -1,4 +1,4 @@
-#include "../../include/entity.h"
+#include "../../include/Entities/entity.h"
 #include "../../include/Components/move.h"
 
 /**

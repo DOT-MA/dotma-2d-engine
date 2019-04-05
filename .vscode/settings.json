@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "sdl.h": "c",
-        "type_traits": "c"
-    }
+        "type_traits": "c",
+        "assetmanager.h": "c"
+    },
+    "C_Cpp.intelliSenseEngineFallback": "Enabled"
 }

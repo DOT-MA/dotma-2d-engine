@@ -3,9 +3,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../../include/entity.h"
-#include "../../include/component.h"
-#include "../../include/timer.h"
+#include "../../include/debug.h"
+
+#include "../../include/Entities/entity.h"
+#include "../../include/Components/component.h"
+#include "../../include/Utilities/timer.h"
 #include "../../include/Entities/cat.h"
 
 #include "../../include/Components/move.h"
@@ -54,10 +56,9 @@ Entity initCat(AssetManager* assetManager) {
     Entity cat;
     // Load cat assets make more flexable and specific later.
     if (!initEntity(&cat, assetManager, "cat4.jpg", "meow1.ogg")) {
-        fprintf(stderr, "Could not initialize cat entity.\n");
+        DEBUG_PRINT(stderr, "Could not initialize cat entity.\n");
         return (Entity) { 0 };
     }
-
     //cat.stats[0] = 10;
 
     // Cat specific specifications.

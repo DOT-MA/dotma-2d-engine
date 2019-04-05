@@ -1,7 +1,7 @@
 #ifndef C_MOVE_H
 #define C_MOVE_H
 
-#include "../component.h"
+#include "../Components/component.h"
 
 /**
  * Possible directions of movement.
