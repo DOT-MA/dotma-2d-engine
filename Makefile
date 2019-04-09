@@ -74,8 +74,7 @@ $(shell $(mkdir) $(OBJDIR)/Utilities)
 all: $(OBJECTS) $(BINDIR)/$(TARGET)
 
 # are we making a debug build?
-debug: CFLAGS += -DDEBUG -g 
-debug: TARGET = debug.out
+debug: CFLAGS += -DDEBUG -g
 debug: $(OBJECTS) $(BINDIR)/$(TARGET)
 
 # compile objects

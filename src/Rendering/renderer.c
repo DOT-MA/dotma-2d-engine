@@ -10,6 +10,7 @@
 #include "../../include/Rendering/renderer.h"
 #include "../../include/Rendering/renderertemplates.h"
 #include "../../include/Entities/entity.h"
+#include "../../include/Utilities/framerate.h"
 
 /**
  * Render all renderable entities.
@@ -35,6 +36,11 @@ void renderScene(GameData* gameData) {
     }
     // Render entities.
     renderEntities(gameData->scene.entityManager, gameData->renderer);
+
+    #ifdef DEBUG
+    // Render FPS.
+    renderFPS(gameData->renderer, getAssetByReference(&gameData->assetManager, "ssp-regular.otf")->pointer.font, getFPS(&gameData->fps));
+    #endif
     // Swap out for new frame.
     SDL_RenderPresent(gameData->renderer);
 }

@@ -11,6 +11,7 @@
 typedef struct FrameRateManager {
     bool capped;
     short cappedFPS;
+    unsigned int frames;
     short currentFPS;
     Timer timer;
 } FrameRateManager;

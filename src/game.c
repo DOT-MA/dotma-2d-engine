@@ -34,7 +34,7 @@ bool initGame(GameData* gameData) {
     // AssetManager.
     initializeAssetManager(&gameData->assetManager);
     // Scenes.
-    gameData->menu = initializeMainMenu(gameData->renderer, &gameData->assetManager, "./res/mainmenu.manifest");
+    // gameData->menu = initializeMainMenu(gameData->renderer, &gameData->assetManager, "./res/mainmenu.manifest");
     gameData->scene = initializeMainMenu(gameData->renderer, &gameData->assetManager, "./res/debug.manifest");
     return true;
 }
