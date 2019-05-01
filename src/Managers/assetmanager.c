@@ -20,7 +20,8 @@ bool typeAsset(Asset* asset, const char* path) {
     // Parse filename to get extention.
     char copy[strlen(path)];
     strcpy(copy, path);
-    char* filename = strtok(copy, "/");
+    char* filename = NULL;
+    filename = strtok(copy, "/");
     while (1) {
         char* test = strtok(NULL, "/");
         if (test == NULL) {
@@ -169,7 +170,7 @@ bool loadAssets(SDL_Renderer* renderer, AssetManager* assetManager, const char* 
         }
         // Let the AssetManager know we have added an asset.
         // Set the texture's unique id
-        assetManager->assets[assetManager->currentSize].uniqueID = assetManager->currentSize;
+        // assetManager->assets[assetManager->currentSize].uniqueID = assetManager->currentSize;
         assetManager->currentSize++;
         memset(buffer, '\0', sizeof(buffer));
     }
@@ -196,37 +197,6 @@ bool freeAssets(AssetManager* assetManager) {
     }
     DEBUG_PRINT(stdout, "Freed %lu assets out of %zu.\n", assetManager->currentSize - current, assetManager->currentSize);
     assetManager->currentSize = current;
-    return true;
-}
-
-/**
- * Free all assets in a given range from the AssetManager.
- */
-bool freeAssetRange(AssetManager* assetManager, size_t range[2]) {
-    // Check if our range is possibly correct.
-    if (!(range[0] < range[1] && range[1] < assetManager->currentSize)) {
-        return false;
-    }
-    // Provide a wrapper around the real asset register so that it is compatable with freeAssets.
-    AssetManager temp = {
-        .assets = &assetManager->assets[range[0]],
-        .currentSize = range[1] - range[0],
-        .totalSize = range[1] - range[0]
-    };
-    if (!freeAssets(&temp)) {
-        return false;
-    }
-    // Shift assets to the left if required.
-    if (range[1] != assetManager->currentSize) {
-        // We have to adjust for assets remaining on right side of freed assets.
-        for (size_t i = range[1]; i < assetManager->currentSize; i++) {
-            assetManager->assets[i - range[0]] = assetManager->assets[i];
-        }
-    }
-    // Resize the array.
-    assetManager->currentSize = assetManager->currentSize - (range[1] - range[0]);
-    assetManager->totalSize = assetManager->currentSize;
-    assetManager->assets = (Asset*) realloc(assetManager->assets, sizeof(Asset) * assetManager->totalSize);
     return true;
 }
 

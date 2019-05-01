@@ -69,6 +69,7 @@ int main(int argc, char** argv) {
         return 2;
     }
 
+    DEBUG_PRINT(stdout, "Game starting....\n");
     // Main game loop.
     while (gameData.status) {
 

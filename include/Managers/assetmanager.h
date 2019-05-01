@@ -31,7 +31,6 @@ typedef union AssetPointer {
  * Each texture to be registered.
  */
 typedef struct Asset {
-    size_t uniqueID;
     enum AssetType type;
     char* reference;
     AssetPointer pointer;
@@ -52,6 +51,21 @@ typedef struct AssetManager {
 bool initializeAssetManager(AssetManager* assetManager);
 
 /**
+ * Determine the type of the asset and set the filename and type.
+ */
+bool typeAsset(Asset* asset, const char* path);
+
+/**
+ * Free an entry in the texture AssetManager.
+ */
+bool freeAsset(Asset* asset);
+
+/**
+ *  Load an asset into the manager.
+ */
+bool loadAsset(SDL_Renderer* renderer, const char* path, Asset* asset);
+
+/**
  * Load assets from a newline-delimated plain text file.
  */
 bool loadAssets(SDL_Renderer* renderer, AssetManager* assetManager, const char* manifest);
@@ -60,11 +74,6 @@ bool loadAssets(SDL_Renderer* renderer, AssetManager* assetManager, const char* 
  * Free all assets from a provided AssetManager.
  */
 bool freeAssets(AssetManager* assetManager);
-
-/**
- * Free all assets in a given range from the AssetManager.
- */
-bool freeAssetRange(AssetManager* assetManager, size_t range[2]);
 
 /**
  * If an asset is found with provided reference, return pointer to asset, else return NULL.
